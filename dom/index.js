@@ -8,7 +8,7 @@ header.style.border = "solid 3px #000"
 
 var addItems = document.getElementsByClassName("title")[0]
 
-addItems.style.fontWeight = "bold"
+addItems.style.fontWeight = "bold";
 addItems.style.color = "green"
 
 var listItems = document.getElementsByClassName("list-group-item")

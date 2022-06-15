@@ -18,3 +18,6 @@ listItems[2].style.backgroundColor = "green"
 for(var i = 0; i<listItems.length;i++){
     listItems[i].style.fontWeight = "bold"
 }
+
+document.getElementsByClassName("list-group").items.children[4].textContent = "red"
+document.getElementsByTagName("li")[4].style.color = "red"

@@ -123,10 +123,13 @@
 
 var form = document.querySelector("#addForm")
 var itemList = document.querySelector("#items") 
+var filter = document.querySelector("#filter")
 
 
 form.addEventListener("submit", addItem)
 itemList.addEventListener("click", removeElement)
+filter.addEventListener("keyup", filterItems)
+
 
 function addItem(e){
     e.preventDefault()
@@ -134,7 +137,9 @@ function addItem(e){
     // Getting input value
 
     var newItem = document.querySelector("#item").value
+    var newItemDescription = document.querySelector("#item-description").value
 
+    newItem = newItem+": "+ newItemDescription
     // Creating new list element
     var li = document.createElement("li")
     li.className = "list-group-item"
@@ -174,3 +179,23 @@ for(i=0; i<n; i++){
     itemList.children[i].appendChild(editBtn)
 }
 
+function filterItems(e){
+    
+    var text = e.target.value.toLowerCase()
+    //console.log(text)
+
+    // Get List
+    var items = itemList.querySelectorAll("li")
+    //console.log(item)
+
+    Array.from(items).forEach(item => {
+        var itemName = item.firstChild.textContent
+        
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display = "block"
+        }else{
+            item.style.display = "none"
+        }
+
+    });
+}

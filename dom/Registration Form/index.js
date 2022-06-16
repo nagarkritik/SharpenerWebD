@@ -22,7 +22,6 @@ function storeValues(e){
     var time = document.querySelector("#time").value
 
     u1 = new user(name, email, phone, date, time)
-    
     // LocalStorage only stores values in string for so we have to convet the
     // object into string form and this process is called serialization
     // Serializing object to string 

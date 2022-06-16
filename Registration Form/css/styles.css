@@ -1,0 +1,99 @@
+body{
+    background: url(https://images.pexels.com/photos/3568520/pexels-photo-3568520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    text-align: center;
+}
+
+hr{
+    width: 680px;
+}
+
+.form-container{
+    color: white;
+    height: 700px;
+    width: 700px;
+    border: solid 3px white;
+    margin: 100px auto 100px auto;
+}
+
+.name-label{
+    font-size: 125%;
+    display: block;
+    position: absolute;
+    margin: 20px auto 10px 20px;
+}
+
+#name{
+    width: 650px;
+    height: 20px;
+    display: block;
+    margin: 30px auto 10px 20px;
+}
+#email{
+    width: 650px;
+    height: 20px;
+    display: block;
+    margin: 10px auto 10px 20px;
+}
+#phone{
+    width: 650px;
+    height: 20px;
+    display: block;
+    margin: 10px auto 10px 20px;
+}
+#date{
+    width: 350px;
+    height: 30px;
+    margin-top: 10px;
+}
+#time{
+    width: 300px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#btn {
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    background: black;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin-top: 40px;
+    width: 680px;
+  }
+  
+  #btn:hover {
+    background: #373637;
+    text-decoration: none;
+  }
+
+.email-label{
+    font-size: 125%;
+    display: block;
+    position: absolute;
+    margin: 0 auto 10px 20px;
+}
+.phone-label{
+    font-size: 125%;
+    display: block;
+    position: absolute;
+    margin: 0 auto 10px 20px;
+}
+.time-label{
+    font-size: 125%;
+    display: block;
+    position: absolute;
+    margin: 0 auto 10px 20px;
+}
+
+.main-heading{
+    color: gray;
+    font-size: 300%;
+}
+

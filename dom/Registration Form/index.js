@@ -1,8 +1,14 @@
 
 var form = document.querySelector(".form")
 
+var newDiv = document.querySelector(".userInfo")
+
+
+
 form.addEventListener("submit", storeValues)
 window.addEventListener("load" , displayUser)
+newDiv.addEventListener("click", deleteUser)
+
 
 function storeValues(e){
     e.preventDefault()
@@ -32,20 +38,50 @@ function storeValues(e){
 
 function displayUser(e){
     //alert("its working")
-    var form = document.querySelector(".form-container")
-
-    var newDiv = document.createElement("div")
-    newDiv.style.backgroundColor = "black"
 
     for( var i =0; i<localStorage.length; i++){
         var user = JSON.parse(localStorage.getItem(localStorage.key(i)))
         
         var details = document.createElement("p")
-    
-        details.appendChild(document.createTextNode(user.name+"  "+ user.email))
+        var deleteButton = document.createElement("button")
+        var editButton = document.createElement("button")
         
-    
+        details.className = "userDetails"
+        deleteButton.className = "btn delete"
+        editButton.className = "btn edit"
+        details.appendChild(document.createTextNode(user.name+":  "+ user.email))
+
+        deleteButton.appendChild(document.createTextNode("X"))
+        editButton.appendChild(document.createTextNode("Edit"))
+        deleteButton.style.float = "right"
+        editButton.style.float = "right"
+        
+        
+        details.appendChild(deleteButton)
+        details.appendChild(editButton)
         newDiv.appendChild(details)
-        form.appendChild(newDiv)
+        
+    }
+}
+
+function deleteUser(e){
+
+    //console.log(e)
+    if(e.target.classList.contains("delete")){
+        
+        var item = e.target.parentElement
+        newDiv.removeChild(item)
+
+        var userInfoDom = item.firstChild.textContent.split(":  ")
+        //console.log(userInfoDom)
+
+        for(var i=0; i<localStorage.length;i++){
+            var user = JSON.parse(localStorage.getItem(localStorage.key(i)))
+            
+            if(user.name === userInfoDom[0] && user.email === userInfoDom[1]){
+                localStorage.removeItem(localStorage.key(i))
+            }
+        }
+
     }
 }

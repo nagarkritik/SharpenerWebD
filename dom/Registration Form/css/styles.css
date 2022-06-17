@@ -96,3 +96,16 @@ hr{
     font-size: 300%;
 }
 
+.userInfo{
+    width: 400px;
+    height: 30px;
+    margin: auto;
+}
+
+.userDetails{
+    background-color: black;
+}
+
+.delete{
+    background-color: red;
+}

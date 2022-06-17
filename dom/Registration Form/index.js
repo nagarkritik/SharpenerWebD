@@ -26,26 +26,26 @@ function storeValues(e){
     // object into string form and this process is called serialization
     // Serializing object to string 
     var u1_Serialized = JSON.stringify(u1)
-    localStorage.setItem('user1', u1_Serialized)
+    localStorage.setItem('u_'+email, u1_Serialized)
 
 }
 
 function displayUser(e){
-    alert("its working")
-    var user = JSON.parse(localStorage.getItem("user1"))
-    console.log(user)
+    //alert("its working")
     var form = document.querySelector(".form-container")
 
     var newDiv = document.createElement("div")
     newDiv.style.backgroundColor = "black"
 
-    var details = document.createElement("p")
-
-    details.appendChild(document.createTextNode(user.name+"  "))
-    details.appendChild(document.createTextNode(user.date+"  "))
-    details.appendChild(document.createTextNode(user.time+"  "))
-
-    newDiv.appendChild(details)
-    form.appendChild(newDiv)
-
+    for( var i =0; i<localStorage.length; i++){
+        var user = JSON.parse(localStorage.getItem(localStorage.key(i)))
+        
+        var details = document.createElement("p")
+    
+        details.appendChild(document.createTextNode(user.name+"  "+ user.email))
+        
+    
+        newDiv.appendChild(details)
+        form.appendChild(newDiv)
+    }
 }

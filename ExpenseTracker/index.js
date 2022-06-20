@@ -1,6 +1,6 @@
 
 class Exp{
-    static c = 0
+    static c
     constructor(expense, description, category){
         Exp.c += 1
         this.expense = expense
@@ -10,7 +10,6 @@ class Exp{
         
     }
 }
-
 
 let form = document.querySelector(".form")
 let newDiv = document.querySelector(".info-container")
@@ -43,9 +42,16 @@ function displayExpense(){
     
     if(localStorage.getItem("number") != null){
         Exp.c = parseInt(localStorage.getItem("number"))
+    }else{
+        Exp.c = 0
     }
 
-    for(let i=1; i<localStorage.length+1;i++){
+    for(let i=0; i<localStorage.length;i++){
+
+        if(localStorage.key(i) == "number"){
+            //console.log("number")
+            continue
+        }
 
         let exp = JSON.parse(localStorage.getItem(localStorage.key(i)))
         //console.log(exp)
@@ -86,6 +92,25 @@ function deleteUser(e){
                 localStorage.removeItem(localStorage.key(i))
             }
         }
+    }
+
+    if(e.target.classList.contains("edit")){
+        
+        let editElementId = parseInt(e.target.parentElement.id)
+        console.log(typeof(editElementId))
+        let newExpense = prompt("Enter new Expense: ")
+        let newDescription = prompt("Enter new description: ")
+        let newCategory = prompt("Enter new category: ")
+
+        editObj = new Exp(newExpense, newDescription, newCategory)
+        Exp.c -= 1
+        editObj.number = editElementId
+
+        editObjSerial = JSON.stringify(editObj)
+
+        localStorage.setItem(editElementId, editObjSerial)
+
+
     }
 }
 

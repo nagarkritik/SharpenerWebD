@@ -66,54 +66,64 @@
 // fun()//print Hello Shyam
 
 
-class Student{
+// class Student{
 
-    static c = 0
-    static minMarks
-    static minAge
-    constructor(name, age, phone, boardMarks){
-        this.name = name
-        this.age = age
-        this.phone = phone
-        this.boardMarks = boardMarks
-        Student.c += 1
-        this.printIfEligibleForPlacement(Student.minMarks, Student.minAge)
-    }
+//     static c = 0
+//     static minMarks
+//     static minAge
+//     constructor(name, age, phone, boardMarks){
+//         this.name = name
+//         this.age = age
+//         this.phone = phone
+//         this.boardMarks = boardMarks
+//         Student.c += 1
+//         this.printIfEligibleForPlacement(Student.minMarks, Student.minAge)
+//     }
 
-    isEligible(){
-        if(this.boardMarks>=40){
-            console.log("Eligible")
-        }else{
-            console.log("Not Eligible")
-        }
+//     isEligible(){
+//         if(this.boardMarks>=40){
+//             console.log("Eligible")
+//         }else{
+//             console.log("Not Eligible")
+//         }
 
-    }
-    eligibleForPlacements(minMarks){
-        return (age)=>{
-            if(this.age>=age && this.boardMarks>=minMarks){
-                return true
-            }else{
-                return false
-            }
-        }
-    }
-    printIfEligibleForPlacement(minMarks, minAge){
-        console.log(this.eligibleForPlacements(minMarks)(minAge))
-    }
+//     }
+//     eligibleForPlacements(minMarks){
+//         return (age)=>{
+//             if(this.age>=age && this.boardMarks>=minMarks){
+//                 return true
+//             }else{
+//                 return false
+//             }
+//         }
+//     }
+//     printIfEligibleForPlacement(minMarks, minAge){
+//         console.log(this.eligibleForPlacements(minMarks)(minAge))
+//     }
 
-    static getNoOfStudents(){
-        console.log(this.c)
-    }
+//     static getNoOfStudents(){
+//         console.log(this.c)
+//     }
     
-}
-Student.minMarks = 45
-Student.minAge = 20
-let s1 = new Student("Amit", 20, 2136678321, 60,  )
-let s2 = new Student("Vaibhav", 21, 2136678321, 45 )
-let s3 = new Student("Bharat", 22, 2136678321, 50 )
-let s4 = new Student("Rajat", 23, 2136678321, 39 )
-let s5 = new Student("Aman", 24, 2136678321, 12 )
+// }
+// Student.minMarks = 45
+// Student.minAge = 20
+// let s1 = new Student("Amit", 20, 2136678321, 60,  )
+// let s2 = new Student("Vaibhav", 21, 2136678321, 45 )
+// let s3 = new Student("Bharat", 22, 2136678321, 50 )
+// let s4 = new Student("Rajat", 23, 2136678321, 39 )
+// let s5 = new Student("Aman", 24, 2136678321, 12 )
 
-Student.getNoOfStudents()
+// Student.getNoOfStudents()
 
+// arr = [1,2,3,4]
+// arr1 = [1,2,3,4]
 
+// arr2 = [...arr1, ...arr]
+// arr2[7] = 5
+
+// console.log(arr1)
+// console.log(arr2)
+
+localStorage.setItem("number", 12)
+console.log(localStorage.getItem("number"))

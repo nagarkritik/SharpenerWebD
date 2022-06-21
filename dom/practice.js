@@ -125,5 +125,220 @@
 // console.log(arr1)
 // console.log(arr2)
 
-localStorage.setItem("number", 12)
-console.log(localStorage.getItem("number"))
+
+
+// class Stack{
+
+//     constructor(n){
+//         this.n = n
+//         this.st = []
+//         this.p = 0
+//     }
+
+//     pushElement(element){
+//         if(this.st.length === this.n){
+//             console.log("Stack is full")
+//             return 
+//         }else{
+//             this.st.push(element)
+//         }
+        
+//     }
+
+//     popElement(){
+//         if(this.st.length === 0){
+//             console.log("Stack is emnpty")
+//         }else{
+//             return this.st.pop()
+//         }
+        
+//     }
+
+//     peekElement(){
+//         return this.st[this.st.length-1]
+//     }
+
+//     isFull(){
+//         if(this.st.length === this.n){
+//             return true
+//         }else return false
+
+//     }
+
+//     isEmpty(){
+//         if(this.st.length === 0){
+//             return true
+//         }else return false
+
+//     }
+
+//     printSt(){
+//         console.log(this.st)
+//     }
+// }
+
+// s1 = new Stack(3)
+// s1.pushElement(1)
+// s1.pushElement(1)
+// s1.pushElement(1)
+// s1.popElement()
+// s1.printSt()
+
+// class Queue{
+
+//     constructor(){
+//         this.q = []
+//         this.start = 0
+//     }
+
+//     pushElement(element){
+//         this.q.push(element)
+//     }
+
+//     popElement(){
+
+//         if(this.isEmpty()){
+//             console.log("Queue is empty")
+//             return 
+//         }
+
+//         let a = this.q[this.start]
+//         this.q[this.start] = undefined
+//         this.start += 1
+//         return a
+//     }
+
+//     isEmpty(){
+//         if(this.q.length === 0) return true
+//         else return false
+//     }
+
+//     printQueue(){
+//         console.log(this.q)
+//     }
+// }
+
+// let q1 = new Queue()
+
+// q1.pushElement(3)
+// q1.pushElement(1)
+// q1.pushElement(2)
+
+// console.log(q1.popElement())
+// console.log(q1.popElement())
+// console.log(q1.popElement())
+
+// q1.pushElement(3)
+// q1.pushElement(1)
+// q1.pushElement(2)
+
+// q1.printQueue()
+
+
+// Callbacks and promises
+// let posts = [
+//     {title:"Post1", body: "This is post1", createdAt: new Date()},
+//     {title:"Post2", body: "This is post2", createdAt: new Date()}
+// ]
+// let intervalId = 0
+// function getPosts(){
+//     clearInterval(intervalId)
+//     intervalId =  setInterval(()=>{
+//         setTimeout(()=>{
+//             let output = ""
+//             posts.forEach((post)=>{
+                
+//                 output+= `<li>${post.title} created ${Math.floor((new Date()-post.createdAt)/1000)} seconds ago</li>`
+//             })
+//             document.body.innerHTML = output
+//         },1000)
+//     })
+    
+// }
+
+// function createPost(post, callback){
+//     setTimeout(()=>{
+//         posts.push({...post, createdAt: new Date()})
+//         callback()
+//     },1000)
+// }
+
+// function create4thPost(post, getPost, callback){
+//     setTimeout(()=>{
+//         callback(post, getPost)
+//     },1000)
+// }
+// createPost({title:"Post3", body:"This is post3"}, getPosts)
+// create4thPost({title:"Post4", body:"This is post4"},getPosts,createPost)
+
+
+
+let posts = [
+    {title:"Post1", body: "This is post1", createdAt: new Date()},
+{title:"Post2", body: "This is post2", createdAt: new Date()}
+]
+
+function createPost(post){
+
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            posts.push(post)
+            console.log(post.title+" created")
+            const error = false
+
+            if(!error){
+                resolve()
+            }else{
+                reject("Error: Something went wrong")
+            }
+        },1000)
+    })
+
+    
+}
+
+function getPost(){
+    setTimeout(()=>{
+        let output = ""
+
+        posts.forEach((post)=>{
+            output+= `<li>${post.title}</li>`
+        })
+        document.body.innerHTML = output
+    },1000)
+}
+
+
+
+
+function deletePost(){
+    let p = new Promise((resolve, reject)=>{
+        let error = false
+
+        if(posts.length===0){
+            error = true
+        }else{
+            posts.pop()
+        }
+        
+        if(!error){
+            resolve()
+        }else{
+            reject("Error: Array is empty now")
+        }
+    })
+    // deleting all posts until array is empty
+    //p.then(deletePost).catch(err=>console.log(err))
+
+    p.then(getPost).catch(err=>console.log(err))
+    //console.log(p)
+
+}
+
+createPost({title:"Post3", body:"This is post3"}).then(deletePost).catch(err=>console.log(err))
+
+
+
+
+
+

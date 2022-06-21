@@ -273,91 +273,285 @@
 
 
 
-let posts = [
-    {title:"Post1", body: "This is post1", createdAt: new Date()},
-{title:"Post2", body: "This is post2", createdAt: new Date()}
-]
+// let posts = [
+//     {title:"Post1", body: "This is post1", createdAt: new Date()},
+// {title:"Post2", body: "This is post2", createdAt: new Date()}
+// ]
 
-function createPost(post){
+// function createPost(post){
 
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            posts.push(post)
-            console.log(post.title+" created")
+//     return new Promise((resolve, reject)=>{
+//         setTimeout(()=>{
+//             posts.push(post)
+//             console.log(post.title+" created")
 
-            const error = false
+//             const error = false
 
-            if(!error){
-                resolve(post)
-            }else{
-                reject("Error: Something went wrong")
-            }
-        },1000)
-    })
+//             if(!error){
+//                 resolve(post)
+//             }else{
+//                 reject("Error: Something went wrong")
+//             }
+//         },1000)
+//     })
 
     
-}
+// }
 
-function getPost(){
-    setTimeout(()=>{
-        let output = ""
+// function getPost(){
+//     setTimeout(()=>{
+//         let output = ""
 
-        posts.forEach((post)=>{
-            output+= `<li>${post.title}</li>`
-        })
-        document.body.innerHTML = output
-    },1000)
-}
+//         posts.forEach((post)=>{
+//             output+= `<li>${post.title}</li>`
+//         })
+//         document.body.innerHTML = output
+//     },1000)
+// }
 
 
 
-function deletePost(){
-    let p = new Promise((resolve, reject)=>{
-        let error = false
-        console.log("delete calles")
+// function deletePost(){
+//     let p = new Promise((resolve, reject)=>{
+//         let error = false
+//         console.log("delete calles")
 
-        if(posts.length===0){
-            error = true
-        }else{
-            posts.pop()
-        }
+//         if(posts.length===0){
+//             error = true
+//         }else{
+//             posts.pop()
+//         }
         
-        if(!error){
-            resolve()
-        }else{
-            reject("Error: Array is empty now")
-        }
-    })
-    // deleting all posts until array is empty
-    //p.then(deletePost).catch(err=>console.log(err))
+//         if(!error){
+//             resolve()
+//         }else{
+//             reject("Error: Array is empty now")
+//         }
+//     })
+//     // deleting all posts until array is empty
+//     //p.then(deletePost).catch(err=>console.log(err))
 
-    p.then(getPost).catch(err=>console.log(err))
-    //console.log(p)
+//     p.then(getPost).catch(err=>console.log(err))
+//     //console.log(p)
 
-}
+// }
 
-createPost({title:"Post3", body:"This is post3"})
-.then(getPost).catch(err=>console.log(err))
-.then(deletePost)
-.then(getPost).catch(err=>console.log(err))
-Promise.all
+// createPost({title:"Post3", body:"This is post3"})
+// .then(getPost).catch(err=>console.log(err))
+// .then(deletePost)
+// .then(getPost).catch(err=>console.log(err))
+// Promise.all
 
-// const p1 = Promise.resolve("Hello World")
-// const p2 = 10
-// const p3 = new Promise((resolve, reject)=>{
-//     setTimeout(resolve, 2000, "Goodbye")
+// // const p1 = Promise.resolve("Hello World")
+// // const p2 = 10
+// // const p3 = new Promise((resolve, reject)=>{
+// //     setTimeout(resolve, 2000, "Goodbye")
+// // })
+// // const p4 = fetch("")
+// // Promise.all([p1,p2,p3]).then(values=>console.log(values))
+
+// function updateLastUserActivityTime(){
+//     return new Promise((resolve, reject)=>{
+//         setTimeout(resolve, 1000, new Date())
+//     })
+// }
+// const p4 = createPost({title:"Post3", body:"This is post3"})
+// const p5 = updateLastUserActivityTime()
+
+// Promise.all([p4,p5]).then(values=>console.log(values)).then(deletePost).then(getPost)
+
+// //createPost({title:"Post3", body:"This is post3"}).then(getPost).catch(err=>console.log(err))
+
+
+
+// Async Await: 
+
+// console.log("Person1: Shows ticket")
+// console.log("Person2: Shows ticket")
+
+// const promiseWifeBringingRicket = new Promise((resolve, reject)=>{
+//     setTimeout(() => {
+//         resolve("Ticket")
+//     }, 3000);
 // })
-// const p4 = fetch("")
-// Promise.all([p1,p2,p3]).then(values=>console.log(values))
 
-function updateLastUserActivityTime(){
-    return new Promise((resolve, reject)=>{
-        setTimeout(resolve, 1000, new Date())
-    })
-}
-const p4 = createPost({title:"Post3", body:"This is post3"})
-const p5 = updateLastUserActivityTime()
+// const getPopcorn =  promiseWifeBringingRicket.then((t)=>{
+//     console.log("Wife: I have the tickets")
+//     console.log("Husband: we should go in")
+//     console.log("Wife: no i am hungry")
+//     return new Promise((resolve,reject)=>resolve(`${t} popcorn`))
+// })
 
-Promise.all([p4,p5]).then(values=>console.log(values)).then(deletePost).then(getPost)
+// const getButter = getPopcorn.then((t)=>{
+//     console.log("husband: i got some popcorn")
+//     console.log("wife: i need butter on my popcorn")
+//     return new Promise((resolve, reject)=> resolve(`${t} butter`))
+// })
 
-//createPost({title:"Post3", body:"This is post3"}).then(getPost).catch(err=>console.log(err))
+// const getColdrinks = getButter.then((t)=>{
+//     console.log(`Husband: I got the cold drinks`)
+//     console.log(`Wife: Let's go!!`)
+//     return new Promise((resolve, reject)=> resolve(`${t} cold drinks`))
+// })
+
+// getColdrinks.then((t) => console.log(t))
+
+// console.log("Person4: Shows ticket")
+// console.log("Person5: Shows ticket")
+
+
+// console.log("Person1: Shows ticket")
+// console.log("Person2: Shows ticket")
+
+// const preMovie = async()=>{
+
+//     const promiseWifeBringingRicket = new Promise((resolve, reject)=>{
+//         setTimeout(()=> reject("Ticket"), 3000)
+//     })
+
+//     const getPopcorn = new Promise((resolve, reject)=> resolve("popcorn"))
+//     const addButter = new Promise((resolve, reject)=> resolve("Butter"))
+//     const getColdrinks = new Promise((resolve, reject)=>resolve("cold drinks"))
+
+//     let ticket = await promiseWifeBringingRicket
+
+//     // try{
+//     //     ticket = await promiseWifeBringingRicket
+//     // }catch(e){
+//     //     ticket = "sad face"
+//     // }
+
+
+//     // console.log(`Wife: I have the ${ticket}`)
+//     // console.log("Husband: we should go in")
+//     // console.log("Wife: no i am hungry")
+
+//     // let popcorn = await getPopcorn
+
+//     // console.log(`husband: i got some ${popcorn}`)
+//     // console.log("wife: i need butter on my popcorn")
+
+//     // let butter = await addButter
+
+//     // console.log(`husband: i got some ${butter} on popcorn`)
+//     // console.log(`Wife: Can yoy please get some coldrinks also`)
+//     // console.log(`Husband: Sure! Why not.`)
+
+//     // let coldDrink = await getColdrinks
+
+//     // console.log(`Husband: I got the ${coldDrink}`)
+//     // console.log(`Wife: Let's go!!`)
+
+//     // let[popcorn, coldDrink] = await Promise.all([getPopcorn, getColdrinks])
+
+//     // console.log(`${popcorn} ${coldDrink}`)
+
+    
+
+
+//     return ticket
+
+
+// }
+
+// preMovie().then((m)=>console.log(`Person3: shows ${m}`))
+
+// console.log("Person4: Shows ticket")
+// console.log("Person5: Shows ticket")
+
+
+
+
+// let posts = [
+//     {title:"Post1", body: "This is post1", createdAt: new Date()},
+// {title:"Post2", body: "This is post2", createdAt: new Date()}
+// ]
+// function createPost(post){
+
+//     return new Promise((resolve, reject)=>{
+//         setTimeout(()=>{
+//             posts.push(post)
+//             console.log(post.title+" created")
+
+//             const error = false
+
+//             if(!error){
+//                 resolve(post)
+//             }else{
+//                 reject("Error: Something went wrong")
+//             }
+//         },1000)
+//     })
+
+    
+// }
+
+// function getPost(){
+//     setTimeout(()=>{
+//         let output = ""
+
+//         posts.forEach((post)=>{
+//             output+= `<li>${post.title}</li>`
+//         })
+//         document.body.innerHTML = output
+//     },1000)
+// }
+
+
+
+// function deletePost(){
+//     let p = new Promise((resolve, reject)=>{
+//         let error = false
+//         console.log("delete calles")
+
+//         if(posts.length===0){
+//             error = true
+//         }else{
+//             posts.pop()
+//         }
+        
+//         if(!error){
+//             resolve()
+//         }else{
+//             reject("Error: Array is empty now")
+//         }
+//     })
+//     // deleting all posts until array is empty
+//     //p.then(deletePost).catch(err=>console.log(err))
+
+//     p.then(getPost).catch(err=>console.log(err))
+//     //console.log(p)
+
+// }
+
+// createPost({title:"Post3", body:"This is post3"})
+// .then(getPost).catch(err=>console.log(err))
+// .then(deletePost)
+// .then(getPost).catch(err=>console.log(err))
+// Promise.all
+
+// // const p1 = Promise.resolve("Hello World")
+// // const p2 = 10
+// // const p3 = new Promise((resolve, reject)=>{
+// //     setTimeout(resolve, 2000, "Goodbye")
+// // })
+// // const p4 = fetch("")
+// // Promise.all([p1,p2,p3]).then(values=>console.log(values))
+
+// function updateLastUserActivityTime(){
+//     return new Promise((resolve, reject)=>{
+//         setTimeout(resolve, 1000, new Date())
+//     })
+// }
+// const p4 = createPost({title:"Post3", body:"This is post3"})
+// const p5 = updateLastUserActivityTime()
+
+// Promise.all([p4,p5]).then(values=>console.log(values)).then(deletePost).then(getPost)
+
+// //createPost({title:"Post3", body:"This is post3"}).then(getPost).catch(err=>console.log(err))
+
+
+
+
+// createPost, getPost, deletePost, lastUserActivity
+

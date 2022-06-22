@@ -52,6 +52,7 @@ function displayUser(users){
         var editButton = document.createElement("button")
         
         details.className = "userDetails"
+        details.id = `${users[i]._id}`
         deleteButton.className = "btn delete"
         editButton.className = "btn edit"
         details.appendChild(document.createTextNode(users[i].name+":  "+ users[i].email))
@@ -75,21 +76,16 @@ function deleteUser(e){
     //console.log(e)
     if(e.target.classList.contains("delete")){
         
-        var item = e.target.parentElement
-        newDiv.removeChild(item)
-
-        var userInfoDom = item.firstChild.textContent.split(":  ")
-        //console.log(userInfoDom)
-
-        for(var i=0; i<localStorage.length;i++){
-            var user = JSON.parse(localStorage.getItem(localStorage.key(i)))
-            
-            if(user.name === userInfoDom[0] && user.email === userInfoDom[1]){
-                localStorage.removeItem(localStorage.key(i))
-            }
-        }
-
-    }
+         var item = e.target.parentElement
+         console.log(item)
+         newDiv.removeChild(item)
+        
+         console.log(item.id)
+        let url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${item.id}`
+         axios.delete(url)
+         .then(res=>console.log(res))
+         .catch(err=>console.log(err))
+     }
 }
 
 function getUsersFromBackend(){

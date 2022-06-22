@@ -13,7 +13,7 @@ newDiv.addEventListener("click", deleteUser)
 function storeValues(e){
     e.preventDefault()
 
-
+    console.log("Store called")
     var name = document.querySelector("#name").value
     var email = document.querySelector("#email").value
     var phone = document.querySelector("#phone").value
@@ -85,6 +85,27 @@ function deleteUser(e){
          axios.delete(url)
          .then(res=>console.log(res))
          .catch(err=>console.log(err))
+     }else if(e.target.classList.contains("edit")){
+        var item = e.target.parentElement
+        console.log(item)
+        newDiv.removeChild(item)
+       
+        console.log(item.id)
+        let url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${item.id}`
+        axios.get(url)
+        .then((res)=>{
+            document.querySelector("#name").value = res.data.name
+            document.querySelector("#email").value = res.data.email
+            document.querySelector("#phone").value = res.data.phone
+            document.querySelector("#date").value = res.data.date
+            document.querySelector("#time").value = res.data.time
+
+            axios.delete(`https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${res.data._id}`)
+            .then((res)=>console.log(res))
+            .catch((err)=>console.log(err))
+        })
+        .catch((err)=>console.log(err))
+
      }
 }
 

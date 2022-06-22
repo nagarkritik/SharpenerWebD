@@ -6,20 +6,13 @@ var newDiv = document.querySelector(".userInfo")
 
 
 form.addEventListener("submit", storeValues)
-window.addEventListener("load" , displayUser)
+window.addEventListener("load" , getUsersFromBackend)
 newDiv.addEventListener("click", deleteUser)
 
 
 function storeValues(e){
     e.preventDefault()
 
-    function user(name, email, phone, date, time){
-        this.name = name
-        this.email = email
-        this.phone = phone
-        this.date = date
-        this.time = time 
-    }
 
     var name = document.querySelector("#name").value
     var email = document.querySelector("#email").value
@@ -27,21 +20,33 @@ function storeValues(e){
     var date = document.querySelector("#date").value
     var time = document.querySelector("#time").value
 
-    u1 = new user(name, email, phone, date, time)
+    let obj ={
+        name,
+        email,
+        phone,
+        date,
+        time
+    } 
     // LocalStorage only stores values in string for so we have to convet the
     // object into string form and this process is called serialization
     // Serializing object to string 
-    var u1_Serialized = JSON.stringify(u1)
-    localStorage.setItem('u_'+email, u1_Serialized)
+    // var u1_Serialized = JSON.stringify(u1)
+    // localStorage.setItem('u_'+email, u1_Serialized)
+
+    axios.post("https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData", obj)
+    .then((response)=>{
+        displayUser([response.data])
+        console.log(response)
+    })
+    .catch(err=>console.log(err))
 
 }
 
-function displayUser(e){
+function displayUser(users){
     //alert("its working")
 
-    for( var i =0; i<localStorage.length; i++){
-        var user = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        
+    for(let i=0; i<users.length; i++){
+
         var details = document.createElement("p")
         var deleteButton = document.createElement("button")
         var editButton = document.createElement("button")
@@ -49,8 +54,8 @@ function displayUser(e){
         details.className = "userDetails"
         deleteButton.className = "btn delete"
         editButton.className = "btn edit"
-        details.appendChild(document.createTextNode(user.name+":  "+ user.email))
-
+        details.appendChild(document.createTextNode(users[i].name+":  "+ users[i].email))
+    
         deleteButton.appendChild(document.createTextNode("X"))
         editButton.appendChild(document.createTextNode("Edit"))
         deleteButton.style.float = "right"
@@ -60,8 +65,9 @@ function displayUser(e){
         details.appendChild(deleteButton)
         details.appendChild(editButton)
         newDiv.appendChild(details)
-        
     }
+
+        
 }
 
 function deleteUser(e){
@@ -84,4 +90,14 @@ function deleteUser(e){
         }
 
     }
+}
+
+function getUsersFromBackend(){
+
+    axios.get("https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData")
+    .then((res)=>{
+        displayUser(res.data)
+        console.log(res)
+    })
+    .catch(err=>console.log(err))
 }

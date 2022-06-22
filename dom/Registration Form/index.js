@@ -3,7 +3,7 @@ var form = document.querySelector(".form")
 
 var newDiv = document.querySelector(".userInfo")
 
-
+var url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData`
 
 form.addEventListener("submit", storeValues)
 window.addEventListener("load" , getUsersFromBackend)
@@ -33,7 +33,7 @@ function storeValues(e){
     // var u1_Serialized = JSON.stringify(u1)
     // localStorage.setItem('u_'+email, u1_Serialized)
 
-    axios.post("https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData", obj)
+    axios.post(url, obj)
     .then((response)=>{
         displayUser([response.data])
         console.log(response)
@@ -77,12 +77,12 @@ function deleteUser(e){
     if(e.target.classList.contains("delete")){
         
          var item = e.target.parentElement
-         console.log(item)
+         //console.log(item)
          newDiv.removeChild(item)
         
-         console.log(item.id)
-        let url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${item.id}`
-         axios.delete(url)
+         //console.log(item.id)
+
+         axios.delete(url+`/${item.id}`)
          .then(res=>console.log(res))
          .catch(err=>console.log(err))
      }else if(e.target.classList.contains("edit")){
@@ -91,8 +91,8 @@ function deleteUser(e){
         newDiv.removeChild(item)
        
         console.log(item.id)
-        let url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${item.id}`
-        axios.get(url)
+
+        axios.get(url+`/${item.id}`)
         .then((res)=>{
             document.querySelector("#name").value = res.data.name
             document.querySelector("#email").value = res.data.email
@@ -100,7 +100,7 @@ function deleteUser(e){
             document.querySelector("#date").value = res.data.date
             document.querySelector("#time").value = res.data.time
 
-            axios.delete(`https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData/${res.data._id}`)
+            axios.delete(url+`/${res.data._id}`)
             .then((res)=>console.log(res))
             .catch((err)=>console.log(err))
         })
@@ -111,7 +111,7 @@ function deleteUser(e){
 
 function getUsersFromBackend(){
 
-    axios.get("https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData")
+    axios.get(url)
     .then((res)=>{
         displayUser(res.data)
         console.log(res)

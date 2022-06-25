@@ -10,7 +10,7 @@ class Exp{
         
     }
 }
-let url = `https://crudcrud.com/api/765b1195af8a4d64b5fd0784d3688936/expenseData`
+let url = `https://crudcrud.com/api/5266115099b340799bc6385c1366cfab/expenseData`
 let form = document.querySelector(".form")
 let newDiv = document.querySelector(".info-container")
 let infoList = document.querySelector(".info-list")
@@ -30,31 +30,33 @@ function addItem(e){
     let category = document.querySelector("#category").value
 
     let exp1 = new Exp(expense, description, category)
-    // localStorage.setItem("number", Exp.c)
-    // exp1_serialized = JSON.stringify(exp1)
 
-    // localStorage.setItem(exp1.number,exp1_serialized)
 
-    axios.post(url, exp1)
-    .then((res)=>{
-        console.log(res)
-        displayExpense([res.data])
-    })
-    .catch((err)=>console.log(err))
+    // axios.post(url, exp1)
+    // .then((res)=>{
+    //     console.log(res)
+    //     displayExpense([res.data])
+    // })
+    // .catch((err)=>console.log(err))
+
+    let post = async ()=>{
+
+        try {
+            let res = await axios.post(url, exp1)
+            console.log(res)
+            displayExpense([res.data])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    post()
 
 }
 
 function displayExpense(users){
     
     for(let i=0; i<users.length;i++){
-
-        // if(localStorage.key(i) == "number"){
-        //     //console.log("number")
-        //     continue
-        // }
-
-        // let exp = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        // //console.log(exp)
         
         let list = document.querySelector(".info-list")
 
@@ -87,38 +89,75 @@ function deleteUser(e){
         //console.log(item.id)
         infoList.removeChild(item)
 
-        axios.delete(url+`/${item.id}`)
-        .then((res)=>console.log(res))
-        .catch((err)=>console.log(err))
+        // axios.delete(url+`/${item.id}`)
+        // .then((res)=>console.log(res))
+        // .catch((err)=>console.log(err))
 
-        // for(let i=0; i<localStorage.length; i++){
-        //     if(item.id === localStorage.key(i)){
-        //         localStorage.removeItem(localStorage.key(i))
-        //     }
-        // }
+        async function del(){
+
+            try {
+                let res = await axios.delete(url+`/${item.id}`)
+                console.log(res)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        del()
+
+
     }else if(e.target.classList.contains("edit")){
         let id = e.target.parentElement.id
         infoList.removeChild(e.target.parentElement)
 
-        axios.get(url+`/${id}`)
-        .then((res)=>{
-            document.querySelector("#expense").value = res.data.expense
-            document.querySelector("#description").value = res.data.description
-            document.querySelector("#category").value = res.data.category
+        // axios.get(url+`/${id}`)
+        // .then((res)=>{
+        //     document.querySelector("#expense").value = res.data.expense
+        //     document.querySelector("#description").value = res.data.description
+        //     document.querySelector("#category").value = res.data.category
 
-            axios.delete(url+`/${res.data._id}`)
-            .then((res)=>console.log(res))
-            .catch((err)=>console.log(err))
+        //     axios.delete(url+`/${res.data._id}`)
+        //     .then((res)=>console.log(res))
+        //     .catch((err)=>console.log(err))
         
-        })
+        // })
+
+        async function edit(){
+            try {
+                let r1 = await axios.get(url+`/${id}`)
+                console.log(r1)
+                document.querySelector("#expense").value = r1.data.expense
+                document.querySelector("#description").value = r1.data.description
+                document.querySelector("#category").value = r1.data.category
+
+                let r2 = await axios.delete(url+`/${r1.data._id}`)
+                console.log(r2)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        edit()
     }
 }
 
 function getUersFromBackend(e){
     
-    axios.get(url)
-    .then((res)=>{
-        displayExpense(res.data)
-    })
+    // axios.get(url)
+    // .then((res)=>{
+    //     displayExpense(res.data)
+    // })
+
+    async function getUsers(){
+        try {
+            let r1 = await axios.get(url)
+            displayExpense(r1.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getUsers()
 }
 

@@ -10,17 +10,18 @@ class Exp{
         
     }
 }
-let url = `https://crudcrud.com/api/5266115099b340799bc6385c1366cfab/expenseData`
+let url = `https://crudcrud.com/api/6afefdeaa96f4ca7bede1c7887674800/expenseData`
 let form = document.querySelector(".form")
 let newDiv = document.querySelector(".info-container")
 let infoList = document.querySelector(".info-list")
 
 form.addEventListener("submit", addItem)
 window.addEventListener("load", getUersFromBackend)
-newDiv.addEventListener("click", deleteUser)
+newDiv.addEventListener("click", deleteOrEditUser)
 
 
-function addItem(e){
+async function addItem(e){
+    try {
     e.preventDefault()
     //console.log(e)
 
@@ -37,127 +38,113 @@ function addItem(e){
     //     console.log(res)
     //     displayExpense([res.data])
     // })
-    // .catch((err)=>console.log(err))
+    // .catch((err)=>console.log(err)
 
-    let post = async ()=>{
-
-        try {
+       
             let res = await axios.post(url, exp1)
             console.log(res)
             displayExpense([res.data])
         } catch (error) {
             console.log(error)
         }
-    }
 
-    post()
 
 }
 
-function displayExpense(users){
-    
-    for(let i=0; i<users.length;i++){
+async function displayExpense(users){
+
+    try {
+        for(let i=0; i<users.length;i++){
         
-        let list = document.querySelector(".info-list")
-
-        let details = document.createElement("li")
-        let delBtn = document.createElement("button")
-        let editBtn = document.createElement("button")
-
-        details.id = users[i]._id
-        delBtn.className = "delBtn delete"
-        editBtn.className = "editBtn edit"
-
-        delBtn.appendChild(document.createTextNode("X"))
-        editBtn.appendChild(document.createTextNode("Edit"))
-
-        details.appendChild(document.createTextNode(`${users[i].expense} - ${users[i].description} - ${users[i].category}       `))
-        details.appendChild(delBtn)
-        details.appendChild(editBtn)
-        list.appendChild(details)
-        //console.log(details)
-        
-    }
-
-}
-
-function deleteUser(e){
+            let list = document.querySelector(".info-list")
     
-    if(e.target.classList.contains("delete")){
-        //console.log(e)
-        let item = e.target.parentElement
-        //console.log(item.id)
-        infoList.removeChild(item)
-
-        // axios.delete(url+`/${item.id}`)
-        // .then((res)=>console.log(res))
-        // .catch((err)=>console.log(err))
-
-        async function del(){
-
-            try {
-                let res = await axios.delete(url+`/${item.id}`)
-                console.log(res)
-            } catch (error) {
-                console.log(error)
-            }
+            let details = document.createElement("li")
+            let delBtn = document.createElement("button")
+            let editBtn = document.createElement("button")
+    
+            details.id = users[i]._id
+            delBtn.className = "delBtn delete"
+            editBtn.className = "editBtn edit"
+    
+            delBtn.appendChild(document.createTextNode("X"))
+            editBtn.appendChild(document.createTextNode("Edit"))
+    
+            details.appendChild(document.createTextNode(`${users[i].expense} - ${users[i].description} - ${users[i].category}       `))
+            details.appendChild(delBtn)
+            details.appendChild(editBtn)
+            list.appendChild(details)
+            //console.log(details)
+            
         }
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
 
-        del()
+async function deleteOrEditUser(e){
+
+    try {
+
+        if(e.target.classList.contains("delete")){
+            //console.log(e)
+            let item = e.target.parentElement
+            //console.log(item.id)
+            infoList.removeChild(item)
+
+            // axios.delete(url+`/${item.id}`)
+            // .then((res)=>console.log(res))
+            // .catch((err)=>console.log(err))
+
+                
+            let res = await axios.delete(url+`/${item.id}`)
+            console.log(res)
 
 
-    }else if(e.target.classList.contains("edit")){
-        let id = e.target.parentElement.id
-        infoList.removeChild(e.target.parentElement)
+        }else if(e.target.classList.contains("edit")){
+            let id = e.target.parentElement.id
+            infoList.removeChild(e.target.parentElement)
 
-        // axios.get(url+`/${id}`)
-        // .then((res)=>{
-        //     document.querySelector("#expense").value = res.data.expense
-        //     document.querySelector("#description").value = res.data.description
-        //     document.querySelector("#category").value = res.data.category
+            // axios.get(url+`/${id}`)
+            // .then((res)=>{
+            //     document.querySelector("#expense").value = res.data.expense
+            //     document.querySelector("#description").value = res.data.description
+            //     document.querySelector("#category").value = res.data.category
 
-        //     axios.delete(url+`/${res.data._id}`)
-        //     .then((res)=>console.log(res))
-        //     .catch((err)=>console.log(err))
-        
-        // })
+            //     axios.delete(url+`/${res.data._id}`)
+            //     .then((res)=>console.log(res))
+            //     .catch((err)=>console.log(err))
+            
+            // })
 
-        async function edit(){
-            try {
-                let r1 = await axios.get(url+`/${id}`)
-                console.log(r1)
-                document.querySelector("#expense").value = r1.data.expense
-                document.querySelector("#description").value = r1.data.description
-                document.querySelector("#category").value = r1.data.category
+            let r1 = await axios.get(url+`/${id}`)
+            console.log(r1)
+            document.querySelector("#expense").value = r1.data.expense
+            document.querySelector("#description").value = r1.data.description
+            document.querySelector("#category").value = r1.data.category
 
-                let r2 = await axios.delete(url+`/${r1.data._id}`)
-                console.log(r2)
+            let r2 = await axios.delete(url+`/${r1.data._id}`)
+            console.log(r2)
 
-            } catch (error) {
-                console.log(error)
-            }
+            
         }
-
-        edit()
+    }catch (error) {
+        console.log(error)
     }
 }
 
-function getUersFromBackend(e){
+async function getUersFromBackend(e){
     
+    try {
     // axios.get(url)
     // .then((res)=>{
     //     displayExpense(res.data)
     // })
 
-    async function getUsers(){
-        try {
-            let r1 = await axios.get(url)
-            displayExpense(r1.data)
-        } catch (error) {
-            console.log(error)
-        }
+    let r1 = await axios.get(url)
+    displayExpense(r1.data)
+    } catch (error) {
+        console.log(error)
     }
-
-    getUsers()
 }
 

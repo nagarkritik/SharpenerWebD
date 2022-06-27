@@ -110,9 +110,7 @@ class Stack{
 
 let s1 = new Stack()
 
-s1.push(2)
-s1.push(1)
-s1.push(3)
+
 s1.printStack()
 console.log(s1.pop())
 console.log(s1.peek())

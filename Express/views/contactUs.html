@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+
+    <link rel="stylesheet" href="css/contactUs.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a class="active" href="/shop">Shop</a></li>
+                <li class="main-header__item"><a href="admin/add-product">Add Product</a></li>
+                <li class="main-header__item"><a href="/contactus">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1 class="main-heading"> CALL</h1>
+        <h3 class="small-heading"> Book a Call</h3>
+        <P>Book a call slot and our representative will call within 1hr of selected time.</P>
+        <hr>
+        <form class="form" action="/success">
+            <label class="name-label" for="name">Name: </label><br>
+            <input type="text" id="name"><br>
+            <label class="email-label" for="email">Email:</label><br>
+            <input type="email" id="email"><br>
+            <label class="phone-label" for="phone">Phone: </label><br>
+            <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10"><br>
+            <label class="time-label" for="time">Time for call:</label><br>
+            <input type="date" id="date">
+            <input type="time" id="time"><br>
+            <button type="submit" id="btn">Get a call</button>
+        </form>
+        <div class="userInfo"></div>
+    </div>
+        
+    </div>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="index.js" charset="utf-8"></script>
+</body>
+</html>

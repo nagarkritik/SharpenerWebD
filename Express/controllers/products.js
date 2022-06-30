@@ -11,7 +11,8 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const product = new Product(req.body.title)
+  const p = req.body
+  const product = new Product(p.title, p.imageUrl, p.description, p.price)
   product.save()
   res.redirect('/');
 };
@@ -26,6 +27,7 @@ exports.getProducts = (req, res, next) => {
       activeShop: true,
       productCSS: true
   })
+
 
   });
 };

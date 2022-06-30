@@ -44,3 +44,10 @@ root.right.right = new Node(7)
 preorderRec(root)
 console.log(pre)
 console.log(preorderIt(root))
+
+
+arr = [1,2,3,4,5]
+
+arr.splice(2,1)
+
+console.log(arr)

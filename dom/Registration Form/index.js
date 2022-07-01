@@ -3,11 +3,11 @@ var form = document.querySelector(".form")
 
 var newDiv = document.querySelector(".userInfo")
 
-var url = `https://crudcrud.com/api/abedbfff0cd1450d992e3703fd9122d8/appointmentData`
+var url = `http://localhost:4000`
 
 form.addEventListener("submit", storeValues)
 window.addEventListener("load" , getUsersFromBackend)
-newDiv.addEventListener("click", deleteUser)
+//newDiv.addEventListener("click", deleteUser)
 
 
 function storeValues(e){
@@ -33,7 +33,7 @@ function storeValues(e){
     // var u1_Serialized = JSON.stringify(u1)
     // localStorage.setItem('u_'+email, u1_Serialized)
 
-    axios.post(url, obj)
+    axios.post(url+"/addNewUser", obj)
     .then((response)=>{
         displayUser([response.data])
         console.log(response)
@@ -111,9 +111,9 @@ function deleteUser(e){
 
 function getUsersFromBackend(){
 
-    axios.get(url)
+    axios.get(url+'/getUsers')
     .then((res)=>{
-        displayUser(res.data)
+        //displayUser(res.data)
         console.log(res)
     })
     .catch(err=>console.log(err))

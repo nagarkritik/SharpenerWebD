@@ -72,7 +72,9 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
+  
   const prodId = req.body.productId;
+  console.log(prodId)
   let fetchedCart;
   let newQuantity = 1;
   req.user
@@ -100,7 +102,7 @@ exports.postCart = (req, res, next) => {
       });
     })
     .then(() => {
-      res.redirect('/cart');
+      //res.redirect('/cart');
     })
     .catch(err => console.log(err));
 };

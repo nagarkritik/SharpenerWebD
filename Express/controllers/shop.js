@@ -60,11 +60,13 @@ exports.getCart = (req, res, next) => {
       return cart
         .getProducts()
         .then(products => {
-          res.render('shop/cart', {
-            path: '/cart',
-            pageTitle: 'Your Cart',
-            products: products
-          });
+          console.log(products)
+          res.json({products})
+          // res.render('shop/cart', {
+          //   path: '/cart',
+          //   pageTitle: 'Your Cart',
+          //   products: products
+          // });
         })
         .catch(err => console.log(err));
     })
@@ -102,7 +104,7 @@ exports.postCart = (req, res, next) => {
       });
     })
     .then(() => {
-      //res.redirect('/cart');
+      res.send("Item added to cartDB");
     })
     .catch(err => console.log(err));
 };

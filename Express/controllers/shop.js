@@ -130,13 +130,6 @@ exports.postCartDeleteProduct = (req, res, next) => {
   });
 };
 
-exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    path: '/orders',
-    pageTitle: 'Your Orders'
-  });
-};
-
 exports.postOrders=(req,res,next)=>{
   let odersDetails
   let fetchedCart

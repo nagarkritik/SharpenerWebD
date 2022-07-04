@@ -137,11 +137,44 @@ exports.getOrders = (req, res, next) => {
   });
 };
 
-exports.postOrders = (req, res, next) => {
-  console.log(req.body.productId)
-  let product = Product.findByPk(req.body.productId)
-  Order.addProduct(product)
+exports.postOrders=(req,res,next)=>{
+  let odersDetails
+  let fetchedCart
+  req.user.getCart().then(cart=>{
+    fetchedCart=cart
+    return cart.getProducts();
+  })
+  .then(products =>{
+   return req.user.createOrder()
+   .then(order=>{
+    odersDetails=order;
+    return order.addProducts(products.map(product=>{
+       product.orderItem= {quantity:product.cartItem.quantity}       
+       return product;
+     }))    
+   })   
+  })
+  .then(result=>{   
+    fetchedCart.setProducts(null)
+    res.status(200).json({orderDetails:odersDetails})
+    
+  })
 
+}
+
+exports.getOrders = (req, res, next) => {
+
+  req.user.getOrders({include:['products']})
+  .then(orders=>{
+    res.status(200).json(orders)
+  }).catch(err=>{
+    console.log(err)
+  })
+  //http://localhost:3000/create-orders
+  // res.render('shop/orders', {
+  //   path: '/orders',
+  //   pageTitle: 'Your Orders'
+  // });
 };
 
 exports.getCheckout = (req, res, next) => {

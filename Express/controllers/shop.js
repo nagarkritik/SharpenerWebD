@@ -1,6 +1,8 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const { json } = require('body-parser');
+const Order = require('../models/order');
+
 
 exports.getProducts = (req, res, next) => {
   Product.findAll()
@@ -123,7 +125,8 @@ exports.postCartDeleteProduct = (req, res, next) => {
   .catch()
   Product.findByPk(prodId, product => {
     Cart.deleteProduct(prodId, product.price);
-    res.redirect('/cart');
+    //res.redirect('/cart');
+    res.send("Deleted successfully")
   });
 };
 
@@ -132,6 +135,13 @@ exports.getOrders = (req, res, next) => {
     path: '/orders',
     pageTitle: 'Your Orders'
   });
+};
+
+exports.postOrders = (req, res, next) => {
+  console.log(req.body.productId)
+  let product = Product.findByPk(req.body.productId)
+  Order.addProduct(product)
+
 };
 
 exports.getCheckout = (req, res, next) => {

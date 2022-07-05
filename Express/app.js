@@ -3,6 +3,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
@@ -20,6 +22,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+
 
 app.use(cors())
 //app.use(bodyParser.urlencoded({extended: false}))

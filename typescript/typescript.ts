@@ -1,6 +1,6 @@
 var num1 = document.querySelector('#num1') as HTMLInputElement
 var num2 = document.querySelector('#num2') as HTMLInputElement
-var btn = document.querySelector('button')
+var btn = document.querySelector('button')!
 
 btn.addEventListener('click', (e)=>{
     e.preventDefault()
